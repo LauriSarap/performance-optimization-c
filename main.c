@@ -9,15 +9,41 @@ TODO:
 1. Right now cache unfriendly access pattern
     * Memory is stored in cache row-wise in C
     * Current matrix multiplication traverses matrix B column-wise
-    * Hence no use of cache
-2. Tiled matrix multiplication
-    * Matrix should be divided into blocks that fit into CPU cache
-    * Reduces cache misses
-    * Optimal block size is dependent on cache CPU cache size
-3. SIMD instructions
-    * Single instruction multiple 
-4. Parallelization
+    * Each access to matrix B jumos N elements in memory
 
+2. Tiled matrix multiplication
+    * CPU caches are organized in levels (L1, L2, L3)
+    * All are limited in size
+    * Matrix should be divided into blocks that fit into CPU cache
+    * Optimal block size is dependent on cache CPU cache size
+
+3. SIMD instructions
+    * Single instruction multiple data
+    * Perform same operation on multiple data simuatenously
+    * Uses special CPU registers
+    * Can process 4-16 elements in parallel per instruction
+    * SIMD instructions sets include: SSE, AVX, NEON
+    * SSE (Streming SIMD Extensions):
+        * 128-bit registers
+        * 4 x 32-bit integers processed at once
+        * Supported by most x86 processors
+    * AVX (Advanced Vector Extensions):
+        * 256-bit registers
+        * 8 x 32-bit integers processed at once
+        * Supported by newer Intel/AMD processors
+    * AVX-512
+        * 512-bit registers
+        * 16 x 32-bit integers at once
+        * Available in high-end processors
+
+4. Parallelization
+    * Make use of multiple cores
+    * Work divided among thread
+    * OpenMP framework
+    * Parallelization strategies include
+        * Row-wise division
+        * Block-wise division
+        * Dynamic scheduling
 */
 
 #define N 2048 // Matrix size
